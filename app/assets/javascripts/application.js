@@ -14,3 +14,26 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+//= require jquery
+
+const mapsUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=32.7983756,-117.2520946&radius=1000&sensor=true&keyword=coffee&key=AIzaSyD4bshGeCYedHa2AnIzfh0ZKWYhyBPOwHs"
+
+$( document ).ready(function() {
+  $(".coffee-button").click(function(){
+    $.ajax({
+      url: mapsUrl,
+      success: function(result){
+        const results = result.results;
+
+        let places = "";
+        for( let index in results) {
+          const place = results[index];
+          const html = "<div>" + place.name + "</div>"
+          places += html;
+        }
+
+        $("#results").html(places);
+      }
+    });
+  });
+});
